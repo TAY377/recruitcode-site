@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecruitCode</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #020617, #0f172a, #172554);
+      color: white;
+    }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .nav, .card, .feature, .footer, .signup, .profile-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      font-size: 13px;
+    }
+    .brand-sub {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      margin-left: 16px;
+      font-size: 14px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(2,6,23,0.92), rgba(23,37,84,0.9));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    .pill {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(147,197,253,0.2);
+      color: #dbeafe;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      margin: 0 0 16px 0;
+    }
+    .hero p {
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 700px;
+    }
+    .buttons {
+      margin-top: 28px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 18px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.16);
+      color: white;
+      background: rgba(255,255,255,0.05);
+    }
+    .stats {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .stat-title {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .stat-text {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .profile-card {
+      padding: 24px;
+    }
+    .profile-head {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .profile-head img {
+      width: 104px;
+      height: 104px;
+      object-fit: cover;
+      border-radius: 22px;
+    }
+    .profile-name {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .muted {
+      color: #cbd5e1;
+    }
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .mini-stat {
+      background: rgba(0,0,0,0.2);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .mini-stat-label {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .mini-stat-value {
+      margin-top: 6px;
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .section-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .feature {
+      padding: 24px;
+    }
+    .feature h3 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+    .feature p {
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    .vision {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 20px;
+    }
+    .card {
+      padding: 28px;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 38px;
+    }
+    .card p {
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+    .signup {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      padding: 28px;
+    }
+    .chips {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+    .form-box {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 24px;
+    }
+    input, select {
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 15px;
+    }
+    select option { color: black; }
+    .submit {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 16px;
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 28px;
+      padding: 28px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 0.9fr;
+      gap: 24px;
+    }
+    .footer h4 {
+      margin: 0 0 14px 0;
+      font-size: 16px;
+    }
+    .footer p, .footer li {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-bottom {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .profile-page {
+      margin-top: 28px;
+      display: none;
+    }
+    .profile-page:target {
+      display: block;
+    }
+    .profile-top {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 22px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(23,37,84,0.9));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 32px;
+      padding: 32px;
+    }
+    .profile-hero-image img {
+      width: 100%;
+      max-width: 290px;
+      border-radius: 26px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+    .info-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .info-item {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .info-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #cbd5e1;
+    }
+    .info-value {
+      margin-top: 6px;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .profile-content {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+    }
+    .white-card {
+      background: rgba(255,255,255,0.96);
+      color: #0f172a;
+      border-radius: 26px;
+      padding: 24px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    }
+    .white-card h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+    .white-card p, .white-card li {
+      color: #475569;
+      line-height: 1.8;
+    }
+    .profile-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .stat-card-light {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .stat-card-light .big {
+      font-size: 34px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .small-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    .small-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .small-card .big-small {
+      font-size: 26px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .qr-img {
+      width: 180px;
+      max-width: 100%;
+      display: block;
+      margin: 12px auto 0 auto;
+      border-radius: 18px;
+      background: white;
+      padding: 10px;
+    }
+    @media (max-width: 900px) {
+      .hero, .signup, .vision, .profile-top, .profile-content, .footer-grid, .section-grid { grid-template-columns: 1fr; }
+      .stats, .info-grid, .profile-stats-grid, .small-grid, .mini-stats { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 40px; }
+    }
+    @media (max-width: 640px) {
+      .stats, .info-grid, .profile-stats-grid, .small-grid, .mini-stats { grid-template-columns: 1fr; }
+      h1 { font-size: 34px; }
+      .hero, .profile-top, .signup, .card, .feature, .footer, .profile-card, .white-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div>
+        <div class="brand">RecruitCode</div>
+        <div class="brand-sub">Built for athlete exposure and college recruiting access</div>
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#sample-profile">Sample Profile</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="pill">The digital front door for athlete recruiting</div>
+        <h1>One profile. One scan. Everything a college coach needs.</h1>
+        <p>
+          RecruitCode helps student athletes organize film, stats, academics, contact information,
+          and social links into one clean, coach-ready digital profile.
+        </p>
+        <div class="buttons">
+          <a href="#sample-profile" class="btn btn-primary">View Sample Athlete</a>
+          <a href="#signup" class="btn btn-secondary">Start Building Profiles</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-title">1 Scan</div>
+            <div class="stat-text">Instant coach access to recruiting information</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">All In One</div>
+            <div class="stat-text">Film, stats, GPA, contact info, and socials together</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">Coach Ready</div>
+            <div class="stat-text">Clean presentation made for fast evaluation</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="profile-card">
+          <div class="muted" style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">Featured Athlete Example</div>
+          <div class="profile-head" style="margin-top: 18px;">
+            <img src="ronald-clark-profile.jpeg" alt="Ronald Clark" />
+            <div>
+              <div class="profile-name">Ronald Clark</div>
+              <div class="muted">Point Guard • Impact Christian Academy</div>
+              <div class="muted" style="margin-top: 8px; font-size: 14px;">Class of 2026 • GPA 3.3</div>
+            </div>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="mini-stat-label">PPG</div>
+              <div class="mini-stat-value">13.0</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-label">3PT%</div>
+              <div class="mini-stat-value">38%</div>
+            </div>
+          </div>
+          <a href="#sample-profile" class="btn" style="display:block; text-align:center; background:white; color:#0f172a; margin-top:18px;">Open Ronald Clark Profile</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-grid">
+      <div class="feature">
+        <h3>For Athletes</h3>
+        <p>Build one recruiting profile with film, stats, academics, contact details, and social links that can be shared instantly.</p>
+      </div>
+      <div class="feature">
+        <h3>For Coaches</h3>
+        <p>Evaluate prospects faster with a mobile-friendly page that puts the most important information in one place.</p>
+      </div>
+      <div class="feature">
+        <h3>For Programs</h3>
+        <p>Showcase an entire roster through consistent digital profiles and QR code access for recruiting events and games.</p>
+      </div>
+    </section>
+
+    <section class="vision">
+      <div class="card">
+        <div class="brand">Platform Vision</div>
+        <h2 style="letter-spacing: normal; text-transform:none; color:white; margin-top:12px;">RecruitCode is built to become a full athlete profile directory.</h2>
+        <p>
+          Ronald Clark is the first sample athlete profile, but the long-term vision is a full website
+          where athletes can sign up, create profiles, and share a RecruitCode page and QR code with college coaches.
+        </p>
+      </div>
+      <div class="card">
+        <div class="brand">Coming Next</div>
+        <p>Multi-athlete directory</p>
+        <p>Coach search and filter tools</p>
+        <p>Profile creation dashboard</p>
+        <p>Analytics and scan tracking</p>
+      </div>
+    </section>
+
+    <section class="signup" id="signup">
+      <div>
+        <div class="brand">Sign Up Interest</div>
+        <h2 style="font-size: 42px; margin: 12px 0 0 0;">Start building your RecruitCode athlete profile.</h2>
+        <p class="muted" style="line-height:1.9; font-size:16px; max-width:700px;">
+          RecruitCode is designed for athletes, coaches, trainers, and programs that want a cleaner and faster
+          way to share recruiting information. This section can serve as the future sign-up entry point for athletes joining the platform.
+        </p>
+        <div class="chips">
+          <div class="chip">Film uploads</div>
+          <div class="chip">Academic profile</div>
+          <div class="chip">Coach contact</div>
+          <div class="chip">QR code sharing</div>
+        </div>
+      </div>
+
+      <div class="form-box">
+        <div style="font-size:24px; font-weight:700;">Join the Waitlist</div>
+        <div class="muted" style="margin-top:8px;">This sample form represents how future athletes and programs could sign up for RecruitCode.</div>
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <input type="text" placeholder="School, Team, or Program">
+        <select>
+          <option>I am an athlete</option>
+          <option>I am a coach</option>
+          <option>I represent a school or program</option>
+          <option>I am a trainer or evaluator</option>
+        </select>
+        <button class="submit">Request Early Access</button>
+      </div>
+    </section>
+
+    <section class="profile-page" id="sample-profile">
+      <div class="profile-top">
+        <div>
+          <div class="pill">RecruitCode Official Athlete Profile</div>
+          <h2 style="font-size:48px; margin:0;">Ronald Clark</h2>
+          <div class="muted" style="font-size:18px; margin-top:10px;">Point Guard • Class of 2026 • Impact Christian Academy</div>
+          <p class="muted" style="line-height:1.8; max-width:720px;">
+            Built to give college coaches one place to view film, academics, stats, and contact information through RecruitCode.
+          </p>
+
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">School</div><div class="info-value">Impact Christian Academy</div></div>
+            <div class="info-item"><div class="info-label">Position</div><div class="info-value">Point Guard</div></div>
+            <div class="info-item"><div class="info-label">Class</div><div class="info-value">2026</div></div>
+            <div class="info-item"><div class="info-label">Height</div><div class="info-value">5'10"</div></div>
+            <div class="info-item"><div class="info-label">Head Coach</div><div class="info-value">Benjamin Jones</div></div>
+            <div class="info-item"><div class="info-label">Hometown</div><div class="info-value">Jacksonville, Florida</div></div>
+          </div>
+        </div>
+
+        <div class="profile-hero-image">
+          <img src="ronald-clark-profile.jpeg" alt="Ronald Clark action shot" />
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div>
+          <div class="white-card">
+            <h3>Highlight Film</h3>
+            <p>Primary highlight film link for coaches.</p>
+            <a class="btn btn-primary" href="https://www.instagram.com/reel/DLgeqcWtUw8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Watch Ronald Clark Highlight Film</a>
+          </div>
+
+          <div class="white-card" style="margin-top:20px;">
+            <h3>Stats & Performance</h3>
+            <div class="profile-stats-grid">
+              <div class="stat-card-light"><div class="muted">Points Per Game</div><div class="big">13.0</div></div>
+              <div class="stat-card-light"><div class="muted">Assists Per Game</div><div class="big">2.9</div></div>
+              <div class="stat-card-light"><div class="muted">Steals Per Game</div><div class="big">1.7</div></div>
+            </div>
+            <div class="small-grid">
+              <div class="small-card"><div class="muted">GP</div><div class="big-small">30</div></div>
+              <div class="small-card"><div class="muted">RPG</div><div class="big-small">2.8</div></div>
+              <div class="small-card"><div class="muted">FG%</div><div class="big-small">45%</div></div>
+              <div class="small-card"><div class="muted">3PT%</div><div class="big-small">38%</div></div>
+              <div class="small-card"><div class="muted">FT%</div><div class="big-small">71%</div></div>
+            </div>
+          </div>
+
+          <div class="white-card" style="margin-top:20px;">
+            <h3>Academics</h3>
+            <p><strong>GPA:</strong> 3.3</p>
+            <p><strong>Graduation Year:</strong> 2026</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="white-card">
+            <h3>Coach Contact</h3>
+            <p><strong>Head Coach:</strong> Benjamin Jones</p>
+            <p><strong>Phone:</strong> 904-631-6688</p>
+            <p><strong>Email:</strong> Add coach email</p>
+          </div>
+
+          <div class="white-card" style="margin-top:20px;">
+            <h3>Athlete Contact</h3>
+            <p><strong>Email:</strong> ralloclark08@gmail.com</p>
+            <p><strong>Phone:</strong> 904-755-4149</p>
+          </div>
+
+          <div class="white-card" style="margin-top:20px;">
+            <h3>Social Links</h3>
+            <p><strong>Instagram:</strong> @rallo_c3</p>
+            <p><strong>X / Twitter:</strong> @ronaldclark_</p>
+            <p><strong>Hudl:</strong> Add Hudl link</p>
+            <p><strong>YouTube:</strong> Add YouTube link</p>
+          </div>
+
+          <div class="white-card" style="margin-top:20px;">
+            <h3>RecruitCode QR Access</h3>
+            <p>Scan for Ronald Clark's full recruiting profile.</p>
+            <img class="qr-img" src="recruitcode-ronald-clark-qr.png" alt="RecruitCode Ronald Clark QR code" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="brand">RecruitCode</div>
+          <p style="margin-top:14px;">
+            RecruitCode is a digital athlete profile platform built to help athletes organize their recruiting story in one place through film, stats, academics, contact information, and QR code access.
+          </p>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li>Home</li>
+            <li>Sample Athlete Profile</li>
+            <li>For Athletes</li>
+            <li>For Coaches</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Project Use</h4>
+          <ul>
+            <li>Internship Final Project</li>
+            <li>Digital Portfolio Feature</li>
+            <li>Recruiting Platform Concept</li>
+            <li>Future Startup Vision</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 RecruitCode. Built as a sport management internship final project and athlete exposure platform concept.</div>
+    </footer>
+  </div>
+</body>
+</html>
