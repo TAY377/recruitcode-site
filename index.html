@@ -1,630 +1,152 @@
-<!DOCTYPE html>
+
+         <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RecruitCode Demo</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #020617, #0f172a, #172554);
-      color: white;
-    }
-    .container { max-width: 1220px; margin: 0 auto; padding: 24px; }
-    .glass {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      backdrop-filter: blur(8px);
-    }
-    .nav {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      padding: 18px 22px; margin-bottom: 28px; flex-wrap: wrap;
-    }
-    .brand {
-      font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
-      color: #93c5fd; font-size: 13px;
-    }
-    .brand-sub { color: #94a3b8; font-size: 14px; margin-top: 6px; }
-    .nav-links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .nav-links a, .nav-links button {
-      color: #e2e8f0; text-decoration: none; font-size: 14px;
-      padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
-    }
-    .hero {
-      display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 24px;
-      background: linear-gradient(135deg, rgba(2,6,23,0.92), rgba(23,37,84,0.9));
-      border: 1px solid rgba(255,255,255,0.12); border-radius: 32px;
-      padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    }
-    .pill {
-      display: inline-block; padding: 10px 14px; border-radius: 999px;
-      background: rgba(59,130,246,0.15); border: 1px solid rgba(147,197,253,0.2);
-      color: #dbeafe; font-size: 14px; margin-bottom: 14px;
-    }
-    h1 { font-size: 56px; line-height: 1.05; margin: 0 0 16px 0; }
-    h2 { margin: 0; }
-    .hero p, .muted { color: #cbd5e1; }
-    .hero p { font-size: 18px; line-height: 1.7; max-width: 700px; }
-    .buttons { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn {
-      display: inline-block; padding: 14px 20px; border-radius: 18px;
-      text-decoration: none; font-weight: 700; font-size: 15px; border: none; cursor: pointer;
-    }
-    .btn-primary { background: #2563eb; color: white; }
-    .btn-secondary { border: 1px solid rgba(255,255,255,0.16); color: white; background: rgba(255,255,255,0.05); }
-    .stats, .section-grid, .footer-grid { display: grid; gap: 18px; }
-    .stats { margin-top: 28px; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .stat-box, .feature, .card, .profile-card, .signup, .footer, .dashboard-shell, .white-card { border-radius: 24px; }
-    .stat-box {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 18px;
-    }
-    .stat-title { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
-    .stat-text { color: #cbd5e1; font-size: 14px; line-height: 1.5; }
-    .profile-card { padding: 24px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
-    .profile-head { display: flex; gap: 18px; align-items: center; }
-    .preview-photo, .profile-head img {
-      width: 104px; height: 104px; object-fit: cover; border-radius: 22px;
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12);
-    }
-    .profile-name { font-size: 30px; font-weight: 700; margin-bottom: 6px; }
-    .mini-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
-    .mini-stat { background: rgba(0,0,0,0.2); border-radius: 18px; padding: 16px; }
-    .mini-stat-label { color: #94a3b8; font-size: 12px; }
-    .mini-stat-value { margin-top: 6px; font-size: 28px; font-weight: 800; }
-    .section-grid { margin-top: 28px; grid-template-columns: repeat(3, 1fr); }
-    .feature, .card, .footer, .signup, .dashboard-shell { padding: 24px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
-    .feature h3, .white-card h3 { margin-top: 0; }
-    .feature p, .card p, .footer p, .footer li { color: #cbd5e1; line-height: 1.7; }
-    .vision { margin-top: 28px; display: grid; grid-template-columns: 1fr 0.8fr; gap: 20px; }
-    .signup { margin-top: 28px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
-    .chips { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .chip {
-      padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.05); color: #cbd5e1; font-size: 14px;
-    }
-    .form-box { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 24px; }
-    input, select, textarea {
-      width: 100%; margin-top: 12px; padding: 14px 16px; border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.08);
-      color: white; font-size: 15px; font-family: inherit;
-    }
-    select option { color: black; }
-    textarea { min-height: 110px; resize: vertical; }
-    .submit {
-      width: 100%; margin-top: 14px; padding: 14px 16px; border: none; border-radius: 16px;
-      background: #2563eb; color: white; font-weight: 700; font-size: 15px; cursor: pointer;
-    }
-    .footer-grid { grid-template-columns: 1.1fr 0.9fr 0.9fr; }
-    .footer ul { list-style: none; padding: 0; margin: 0; }
-    .footer-bottom {
-      margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1);
-      color: #94a3b8; font-size: 12px; letter-spacing: 0.04em;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RecruitCode</title>
 
-    .profile-page, .dashboard-page { margin-top: 28px; display: none; }
-    .profile-page.active, .dashboard-page.active { display: block; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0f172a;
+  color: white;
+}
 
-    .profile-top {
-      display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 22px;
-      background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(23,37,84,0.9));
-      border: 1px solid rgba(255,255,255,0.12); border-radius: 32px; padding: 32px;
-    }
-    .profile-hero-image img {
-      width: 100%; max-width: 290px; border-radius: 26px; object-fit: cover;
-      display: block; margin: 0 auto; background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.12); aspect-ratio: 1 / 1;
-    }
-    .info-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .info-item {
-      padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .info-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #cbd5e1; }
-    .info-value { margin-top: 6px; font-weight: 700; font-size: 16px; }
-    .profile-content { margin-top: 24px; display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 22px; }
-    .white-card {
-      background: rgba(255,255,255,0.96); color: #0f172a; padding: 24px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
-    }
-    .white-card p, .white-card li, .white-card .muted-dark { color: #475569; line-height: 1.8; }
-    .profile-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .stat-card-light { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px; }
-    .stat-card-light .big { font-size: 34px; font-weight: 800; margin-top: 8px; }
-    .small-grid { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .small-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; }
-    .small-card .big-small { font-size: 26px; font-weight: 800; margin-top: 8px; }
-    .qr-box {
-      width: 180px; height: 180px; max-width: 100%; display: flex; align-items: center; justify-content: center;
-      margin: 12px auto 0 auto; border-radius: 18px; background: white; color: black; font-weight: 700;
-      padding: 10px; text-align: center;
-    }
+.container {
+  padding: 20px;
+}
 
-    .dashboard-shell { margin-top: 28px; }
-    .dashboard-header {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-    .dashboard-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 20px; }
-    .dashboard-card {
-      background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 22px; padding: 20px;
-    }
-    .dashboard-card h3 { margin-top: 0; }
-    .dash-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .save-bar {
-      margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;
-    }
-    .small-btn {
-      padding: 12px 16px; border-radius: 14px; border: none; font-weight: 700; cursor: pointer;
-    }
-    .primary { background: #2563eb; color: white; }
-    .ghost { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.12); }
-    .status-pill {
-      display: inline-block; padding: 8px 12px; border-radius: 999px; font-size: 12px;
-      background: rgba(34,197,94,0.12); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.18);
-    }
-    .demo-note {
-      margin-top: 14px; color: #94a3b8; font-size: 13px; line-height: 1.6;
-    }
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    @media (max-width: 920px) {
-      .hero, .signup, .vision, .profile-top, .profile-content, .footer-grid, .section-grid, .dashboard-grid { grid-template-columns: 1fr; }
-      .stats, .info-grid, .profile-stats-grid, .small-grid, .mini-stats, .dash-row { grid-template-columns: 1fr 1fr; }
-      h1 { font-size: 40px; }
-    }
-    @media (max-width: 640px) {
-      .stats, .info-grid, .profile-stats-grid, .small-grid, .mini-stats, .dash-row { grid-template-columns: 1fr; }
-      h1 { font-size: 34px; }
-      .hero, .profile-top, .signup, .card, .feature, .footer, .profile-card, .white-card, .dashboard-shell { padding: 20px; }
-    }
-  </style>
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+img {
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="nav glass">
-      <div>
-        <div class="brand">RecruitCode</div>
-        <div class="brand-sub">Built for athlete exposure and college recruiting access</div>
-      </div>
-      <div class="nav-links">
-        <a href="#" id="homeLink">Home</a>
-        <button id="visitorBtn">Visitor View</button>
-        <button id="ownerBtn">Owner Dashboard</button>
-      </div>
-    </div>
 
-    <section class="hero">
-      <div>
-        <div class="pill">The digital front door for athlete recruiting</div>
-        <h1>One profile. One scan. Everything a college coach needs.</h1>
-        <p>
-          RecruitCode helps student athletes organize film, stats, academics, contact information,
-          and social links into one clean, coach-ready digital profile.
-        </p>
-        <div class="buttons">
-          <button class="btn btn-primary" id="heroVisitorBtn">View Sample Athlete</button>
-          <button class="btn btn-secondary" id="heroOwnerBtn">Open Owner Dashboard</button>
-        </div>
+<div class="container">
 
-        <div class="stats">
-          <div class="stat-box">
-            <div class="stat-title">1 Scan</div>
-            <div class="stat-text">Instant coach access to recruiting information</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">All In One</div>
-            <div class="stat-text">Film, stats, GPA, contact info, and socials together</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">Coach Ready</div>
-            <div class="stat-text">Clean presentation made for fast evaluation</div>
-          </div>
-        </div>
-      </div>
+<h1>RecruitCode</h1>
 
-      <div>
-        <div class="profile-card">
-          <div class="muted" style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">Featured Athlete Example</div>
-          <div class= src="ronald.jpg" alt="Ronald Clark" style="margin-top: 18px;">
-            <img id="featuredPreview" src="ronald.jpg" alt="Ronald Clark" /> 
-            <div>
-              <div class="profile-name" id="homePlayerName">Ronald Clark</div>
-              <div class="muted"><span id="homePosition">Point Guard</span> • <span id="homeSchool">Impact Christian Academy</span></div>
-              <div class="muted" style="margin-top: 8px; font-size: 14px;">Class of <span id="homeClass">2026</span> • GPA <span id="homeGpa">3.3</span></div>
-            </div>
-          </div>
-          <div class="mini-stats">
-            <div class="mini-stat">
-              <div class="mini-stat-label">PPG</div>
-              <div class="mini-stat-value" id="homePpg">13.0</div>
-            </div>
-            <div class="mini-stat">
-              <div class="mini-stat-label">3PT%</div>
-              <div class="mini-stat-value" id="homeThree">38%</div>
-            </div>
-          </div>
-          <button class="btn" id="openProfileCardBtn" style="display:block; width:100%; text-align:center; background:white; color:#0f172a; margin-top:18px;">Open Ronald Clark Profile</button>
-        </div>
-      </div>
-    </section>
+<div class="hero">
 
-    <section class="section-grid">
-      <div class="feature glass">
-        <h3>For Athletes</h3>
-        <p>Build one recruiting profile with film, stats, academics, contact details, and social links that can be shared instantly.</p>
-      </div>
-      <div class="feature glass">
-        <h3>For Coaches</h3>
-        <p>Evaluate prospects faster with a mobile-friendly page that puts the most important information in one place.</p>
-      </div>
-      <div class="feature glass">
-        <h3>For Programs</h3>
-        <p>Showcase an entire roster through consistent digital profiles and QR code access for recruiting events and games.</p>
-      </div>
-    </section>
+<div>
+<h2>One profile. One scan.</h2>
+<p>Everything a coach needs in one place.</p>
 
-    <section class="vision">
-      <div class="card glass">
-        <div class="brand">Platform Vision</div>
-        <h2 style="letter-spacing: normal; text-transform:none; color:white; margin-top:12px;">RecruitCode is built to become a full athlete profile directory.</h2>
-        <p>
-          Ronald Clark is the first sample athlete profile, but the long-term vision is a full website
-          where athletes can sign up, create profiles, and share a RecruitCode page and QR code with college coaches.
-        </p>
-      </div>
-      <div class="card glass">
-        <div class="brand">Coming Next</div>
-        <p>Multi-athlete directory</p>
-        <p>Coach search and filter tools</p>
-        <p>Profile creation dashboard</p>
-        <p>Analytics and scan tracking</p>
-      </div>
-    </section>
+<button onclick="showVisitor()">View Athlete</button>
+<button onclick="showOwner()">Owner Dashboard</button>
+</div>
 
-    <section class="signup glass">
-      <div>
-        <div class="brand">Sign Up Interest</div>
-        <h2 style="font-size: 42px; margin: 12px 0 0 0;">Start building your RecruitCode athlete profile.</h2>
-        <p class="muted" style="line-height:1.9; font-size:16px; max-width:700px;">
-          RecruitCode is designed for athletes, coaches, trainers, and programs that want a cleaner and faster
-          way to share recruiting information. This section can serve as the future sign-up entry point for athletes joining the platform.
-        </p>
-        <div class="chips">
-          <div class="chip">Film uploads</div>
-          <div class="chip">Academic profile</div>
-          <div class="chip">Coach contact</div>
-          <div class="chip">QR code sharing</div>
-        </div>
-      </div>
+<div class="card">
+<h3>Featured Athlete</h3>
 
-      <div class="form-box">
-        <div style="font-size:24px; font-weight:700;">Join the Waitlist</div>
-        <div class="muted" style="margin-top:8px;">This sample form represents how future athletes and programs could sign up for RecruitCode.</div>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email Address">
-        <input type="text" placeholder="School, Team, or Program">
-        <select>
-          <option>I am an athlete</option>
-          <option>I am a coach</option>
-          <option>I represent a school or program</option>
-          <option>I am a trainer or evaluator</option>
-        </select>
-        <button class="submit">Request Early Access</button>
-      </div>
-    </section>
+<img id="featuredPreview" src="ronald.jpg" width="120">
 
-    <section class="profile-page" id="visitorView">
-      <div class="profile-top">
-        <div>
-          <div class="pill">Visitor View • Coach Profile Page</div>
-          <h2 id="visitorName" style="font-size:48px; margin:0;">Ronald Clark</h2>
-          <div class="muted" style="font-size:18px; margin-top:10px;"><span id="visitorPosition">Point Guard</span> • Class of <span id="visitorClass">2026</span> • <span id="visitorSchool">Impact Christian Academy</span></div>
-          <p class="muted" style="line-height:1.8; max-width:720px;">
-            Built to give college coaches one place to view film, academics, stats, and contact information through RecruitCode.
-          </p>
+<p><strong>Ronald Clark</strong></p>
+<p>PG • Class of 2026</p>
 
-          <div class="info-grid">
-            <div class="info-item"><div class="info-label">School</div><div class="info-value" id="infoSchool">Impact Christian Academy</div></div>
-            <div class="info-item"><div class="info-label">Position</div><div class="info-value" id="infoPosition">Point Guard</div></div>
-            <div class="info-item"><div class="info-label">Class</div><div class="info-value" id="infoClass">2026</div></div>
-            <div class="info-item"><div class="info-label">Height</div><div class="info-value" id="infoHeight">5'10"</div></div>
-            <div class="info-item"><div class="info-label">Head Coach</div><div class="info-value" id="infoCoach">Benjamin Jones</div></div>
-            <div class="info-item"><div class="info-label">Hometown</div><div class="info-value" id="infoHometown">Jacksonville, Florida</div></div>
-          </div>
-        </div>
+<button onclick="showVisitor()">Open Profile</button>
+</div>
 
-        <div class="profile-hero-image">
-          <img id="mainProfilePhoto" src="ronald.jpg"alt="Ronald Clark action shot" />
-        </div>
-      </div>
+</div>
 
-      <div class="profile-content">
-        <div>
-          <div class="white-card">
-            <h3>Highlight Film</h3>
-            <p id="visitorFilmText">Primary highlight film link for coaches.</p>
-            <a class="btn btn-primary" id="filmLinkBtn" href="https://www.instagram.com/reel/DLgeqcWtUw8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Watch Ronald Clark Highlight Film</a>
-          </div>
+<!-- VISITOR VIEW -->
+<div id="visitor" class="hidden">
 
-          <div class="white-card" style="margin-top:20px;">
-            <h3>Stats & Performance</h3>
-            <div class="profile-stats-grid">
-              <div class="stat-card-light"><div class="muted-dark">Points Per Game</div><div class="big" id="statPpg">13.0</div></div>
-              <div class="stat-card-light"><div class="muted-dark">Assists Per Game</div><div class="big" id="statApg">2.9</div></div>
-              <div class="stat-card-light"><div class="muted-dark">Steals Per Game</div><div class="big" id="statSpg">1.7</div></div>
-            </div>
-            <div class="small-grid">
-              <div class="small-card"><div class="muted-dark">GP</div><div class="big-small" id="statGp">30</div></div>
-              <div class="small-card"><div class="muted-dark">RPG</div><div class="big-small" id="statRpg">2.8</div></div>
-              <div class="small-card"><div class="muted-dark">FG%</div><div class="big-small" id="statFg">45%</div></div>
-              <div class="small-card"><div class="muted-dark">3PT%</div><div class="big-small" id="statThree">38%</div></div>
-              <div class="small-card"><div class="muted-dark">FT%</div><div class="big-small" id="statFt">71%</div></div>
-            </div>
-          </div>
+<h2>Ronald Clark</h2>
 
-          <div class="white-card" style="margin-top:20px;">
-            <h3>Academics</h3>
-            <p><strong>GPA:</strong> <span id="visitorGpa">3.3</span></p>
-            <p><strong>Graduation Year:</strong> <span id="visitorGradYear">2026</span></p>
-          </div>
-        </div>
+<img id="mainProfilePhoto" src="ronald.jpg" width="200">
 
-        <div>
-          <div class="white-card">
-            <h3>Coach Contact</h3>
-            <p><strong>Head Coach:</strong> <span id="visitorCoach">Benjamin Jones</span></p>
-            <p><strong>Phone:</strong> <span id="visitorCoachPhone">904-631-6688</span></p>
-            <p><strong>Email:</strong> <span id="visitorCoachEmail">Add coach email</span></p>
-          </div>
+<p>Point Guard • Impact Christian Academy</p>
+<p>GPA: 3.3</p>
 
-          <div class="white-card" style="margin-top:20px;">
-            <h3>Athlete Contact</h3>
-            <p><strong>Email:</strong> <span id="visitorEmail">ralloclark08@gmail.com</span></p>
-            <p><strong>Phone:</strong> <span id="visitorPhone">904-755-4149</span></p>
-          </div>
+<h3>Stats</h3>
+<p>PPG: 13.0 | APG: 2.9 | RPG: 2.8</p>
 
-          <div class="white-card" style="margin-top:20px;">
-            <h3>Social Links</h3>
-            <p><strong>Instagram:</strong> <span id="visitorInstagram">@rallo_c3</span></p>
-            <p><strong>X / Twitter:</strong> <span id="visitorTwitter">@ronaldclark_</span></p>
-            <p><strong>Hudl:</strong> <span id="visitorHudl">Add Hudl link</span></p>
-            <p><strong>YouTube:</strong> <span id="visitorYoutube">Add YouTube link</span></p>
-          </div>
+<h3>Film</h3>
+<a href="https://www.instagram.com/reel/DLgeqcWtUw8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
+Watch Highlights
+</a>
 
-          <div class="white-card" style="margin-top:20px;">
-            <h3>RecruitCode QR Access</h3>
-            <p>This is what the QR code would open for a coach or visitor.</p>
-            <div class="qr-box"src="ronald-qr.png" alt="Ronald Clark QR Code"
-          </div>
-        </div>
-      </div>
-    </section>
+<h3>QR Code</h3>
 
-    <section class="dashboard-page" id="ownerView">
-      <div class="dashboard-shell glass">
-        <div class="dashboard-header">
-          <div>
-            <div class="pill" style="margin-bottom:8px;">Owner Dashboard • Athlete Account View</div>
-            <h2 style="font-size:42px; margin:0;">Manage Ronald Clark's RecruitCode Profile</h2>
-            <div class="muted" style="margin-top:10px;">This is the demo showing how an athlete would edit their account, upload content, and update their public recruiting page.</div>
-          </div>
-          <div class="status-pill">Profile Active</div>
-        </div>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ftay377.github.io%2Frecruitcode-site%2F%23visitor" />
 
-        <div class="dashboard-grid">
-          <div class="dashboard-card">
-            <h3>Profile Photo Upload</h3>
-            <input id="photoUpload" type="file" accept="image/*" />
-            <div class="demo-note">Upload a photo from your computer and it updates both the homepage card and the public visitor profile.</div>
+</div>
 
-            <h3 style="margin-top:24px;">Basic Information</h3>
-            <input id="dashName" type="text" value="Ronald Clark" placeholder="Athlete Name" />
-            <div class="dash-row">
-              <input id="dashPosition" type="text" value="Point Guard" placeholder="Position" />
-              <input id="dashClass" type="text" value="2026" placeholder="Class Year" />
-            </div>
-            <div class="dash-row">
-              <input id="dashSchool" type="text" value="Impact Christian Academy" placeholder="School" />
-              <input id="dashHeight" type="text" value="5'10&quot;" placeholder="Height" />
-            </div>
-            <div class="dash-row">
-              <input id="dashGpa" type="text" value="3.3" placeholder="GPA" />
-              <input id="dashHometown" type="text" value="Jacksonville, Florida" placeholder="Hometown" />
-            </div>
-            <div class="dash-row">
-              <input id="dashCoach" type="text" value="Benjamin Jones" placeholder="Coach Name" />
-              <input id="dashCoachPhone" type="text" value="904-631-6688" placeholder="Coach Phone" />
-            </div>
-            <div class="dash-row">
-              <input id="dashEmail" type="text" value="ralloclark08@gmail.com" placeholder="Athlete Email" />
-              <input id="dashPhone" type="text" value="904-755-4149" placeholder="Athlete Phone" />
-            </div>
-          </div>
+<!-- OWNER DASHBOARD -->
+<div id="owner" class="hidden">
 
-          <div class="dashboard-card">
-            <h3>Media, Stats, and Links</h3>
-            <input id="dashFilmLink" type="text" value="https://www.instagram.com/reel/DLgeqcWtUw8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" placeholder="Highlight Film Link" />
-            <textarea id="dashFilmText" placeholder="Short film description">Primary highlight film link for coaches.</textarea>
+<h2>Owner Dashboard</h2>
 
-            <div class="dash-row">
-              <input id="dashPpg" type="text" value="13.0" placeholder="PPG" />
-              <input id="dashApg" type="text" value="2.9" placeholder="APG" />
-            </div>
-            <div class="dash-row">
-              <input id="dashRpg" type="text" value="2.8" placeholder="RPG" />
-              <input id="dashSpg" type="text" value="1.7" placeholder="SPG" />
-            </div>
-            <div class="dash-row">
-              <input id="dashFg" type="text" value="45%" placeholder="FG%" />
-              <input id="dashThree" type="text" value="38%" placeholder="3PT%" />
-            </div>
-            <div class="dash-row">
-              <input id="dashFt" type="text" value="71%" placeholder="FT%" />
-              <input id="dashGp" type="text" value="30" placeholder="Games Played" />
-            </div>
+<input type="file" id="upload">
 
-            <div class="dash-row">
-              <input id="dashInstagram" type="text" value="@rallo_c3" placeholder="Instagram" />
-              <input id="dashTwitter" type="text" value="@ronaldclark_" placeholder="Twitter / X" />
-            </div>
-            <div class="dash-row">
-              <input id="dashHudl" type="text" value="Add Hudl link" placeholder="Hudl Link" />
-              <input id="dashYoutube" type="text" value="Add YouTube link" placeholder="YouTube Link" />
-            </div>
+<button onclick="save()">Save</button>
 
-            <div class="save-bar">
-              <button class="small-btn primary" id="saveChangesBtn">Save Demo Changes</button>
-              <button class="small-btn ghost" id="previewVisitorBtn">Preview Public Profile</button>
-            </div>
-            <div class="demo-note">This is a front-end demo for your presentation. It updates the visitor profile live so you can show how RecruitCode would work for the athlete account side and the coach-facing side.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <footer class="footer glass">
-      <div class="footer-grid">
-        <div>
-          <div class="brand">RecruitCode</div>
-          <p style="margin-top:14px;">
-            RecruitCode is a digital athlete profile platform built to help athletes organize their recruiting story in one place through film, stats, academics, contact information, and QR code access.
-          </p>
-        </div>
-        <div>
-          <h4>Platform</h4>
-          <ul>
-            <li>Home</li>
-            <li>Visitor Profile View</li>
-            <li>Owner Dashboard</li>
-            <li>Future Athlete Directory</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Project Use</h4>
-          <ul>
-            <li>Internship Final Project</li>
-            <li>Digital Portfolio Feature</li>
-            <li>Recruiting Platform Concept</li>
-            <li>Future Startup Vision</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2026 RecruitCode. Built as a sport management internship final project and athlete exposure platform concept.</div>
-    </footer>
-  </div>
+</div>
 
-  <script>
-    const visitorSection = document.getElementById("visitorView");
-    const ownerSection = document.getElementById("ownerView");
+<script>
 
-    function showVisitor() {
-      visitorSection.classList.add("active");
-      ownerSection.classList.remove("active");
-      visitorSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+function showVisitor() {
+  document.getElementById("visitor").classList.remove("hidden");
+  document.getElementById("owner").classList.add("hidden");
+}
 
-    function showOwner() {
-      ownerSection.classList.add("active");
-      visitorSection.classList.remove("active");
-      ownerSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+function showOwner() {
+  document.getElementById("owner").classList.remove("hidden");
+  document.getElementById("visitor").classList.add("hidden");
+}
 
-    document.getElementById("visitorBtn").onclick = showVisitor;
-    document.getElementById("heroVisitorBtn").onclick = showVisitor;
-    document.getElementById("openProfileCardBtn").onclick = showVisitor;
-    document.getElementById("ownerBtn").onclick = showOwner;
-    document.getElementById("heroOwnerBtn").onclick = showOwner;
-    document.getElementById("previewVisitorBtn").onclick = showVisitor;
-    document.getElementById("homeLink").onclick = function(e){ e.preventDefault(); visitorSection.classList.remove("active"); ownerSection.classList.remove("active"); window.scrollTo({ top: 0, behavior: "smooth" }); };
+document.getElementById("upload").addEventListener("change", function(e){
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    localStorage.setItem("photo", event.target.result);
+    document.getElementById("mainProfilePhoto").src = event.target.result;
+    document.getElementById("featuredPreview").src = event.target.result;
+  };
+  reader.readAsDataURL(e.target.files[0]);
+});
 
-    const mainPhoto = document.getElementById("mainProfilePhoto");
-    const featuredPhoto = document.getElementById("featuredPreview");
-    document.getElementById("photoUpload").addEventListener("change", function (event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        mainPhoto.src = e.target.result;
-        featuredPhoto.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+function save() {
+  alert("Saved! (stays on this browser)");
+}
 
-    function setText(id, value) {
-      document.getElementById(id).textContent = value;
-    }
+window.onload = function() {
+  const saved = localStorage.getItem("photo");
+  if(saved){
+    document.getElementById("mainProfilePhoto").src = saved;
+    document.getElementById("featuredPreview").src = saved;
+  }
+};
 
-    document.getElementById("saveChangesBtn").addEventListener("click", function() {
-      const name = document.getElementById("dashName").value;
-      const position = document.getElementById("dashPosition").value;
-      const classYear = document.getElementById("dashClass").value;
-      const school = document.getElementById("dashSchool").value;
-      const height = document.getElementById("dashHeight").value;
-      const gpa = document.getElementById("dashGpa").value;
-      const hometown = document.getElementById("dashHometown").value;
-      const coach = document.getElementById("dashCoach").value;
-      const coachPhone = document.getElementById("dashCoachPhone").value;
-      const email = document.getElementById("dashEmail").value;
-      const phone = document.getElementById("dashPhone").value;
-      const filmLink = document.getElementById("dashFilmLink").value;
-      const filmText = document.getElementById("dashFilmText").value;
-      const ppg = document.getElementById("dashPpg").value;
-      const apg = document.getElementById("dashApg").value;
-      const rpg = document.getElementById("dashRpg").value;
-      const spg = document.getElementById("dashSpg").value;
-      const fg = document.getElementById("dashFg").value;
-      const three = document.getElementById("dashThree").value;
-      const ft = document.getElementById("dashFt").value;
-      const gp = document.getElementById("dashGp").value;
-      const instagram = document.getElementById("dashInstagram").value;
-      const twitter = document.getElementById("dashTwitter").value;
-      const hudl = document.getElementById("dashHudl").value;
-      const youtube = document.getElementById("dashYoutube").value;
+</script>
 
-      setText("homePlayerName", name);
-      setText("homePosition", position);
-      setText("homeSchool", school);
-      setText("homeClass", classYear);
-      setText("homeGpa", gpa);
-      setText("homePpg", ppg);
-      setText("homeThree", three);
-
-      setText("visitorName", name);
-      setText("visitorPosition", position);
-      setText("visitorClass", classYear);
-      setText("visitorSchool", school);
-      setText("infoSchool", school);
-      setText("infoPosition", position);
-      setText("infoClass", classYear);
-      setText("infoHeight", height);
-      setText("infoCoach", coach);
-      setText("infoHometown", hometown);
-      setText("visitorGpa", gpa);
-      setText("visitorGradYear", classYear);
-      setText("visitorCoach", coach);
-      setText("visitorCoachPhone", coachPhone);
-      setText("visitorEmail", email);
-      setText("visitorPhone", phone);
-      setText("visitorInstagram", instagram);
-      setText("visitorTwitter", twitter);
-      setText("visitorHudl", hudl);
-      setText("visitorYoutube", youtube);
-      setText("statPpg", ppg);
-      setText("statApg", apg);
-      setText("statRpg", rpg);
-      setText("statSpg", spg);
-      setText("statFg", fg);
-      setText("statThree", three);
-      setText("statFt", ft);
-      setText("statGp", gp);
-      setText("visitorFilmText", filmText);
-      document.getElementById("filmLinkBtn").href = filmLink || "#";
-      alert("Demo changes saved. Now click 'Preview Public Profile' to show what a coach would see.");
-    });
-  </script>
 </body>
 </html>
